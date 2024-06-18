@@ -1,0 +1,54 @@
+@startuml
+
+class Setting<Store> {
+    wip: number
+}
+
+class RoundRecord {
+    startTime
+    endTime
+    wip: number
+    cardNumber: number
+    finalLeadTime: number
+    fastestLeadTime: number
+    calculateLeadTime(cards: Card[])
+}
+
+class Process {
+    duration: number
+    processType: string
+    startTime: Date
+    endTime: Date
+    processRef: ref<HTMLElement | null>
+    exec()
+}
+
+class Card {
+    currentProcessType: string
+    reset()
+    moveTo()
+    execProcess()
+    getStartTime()
+    cardRef: ref<Card | null>
+    getEndTime()
+}
+
+class Column {
+    processType: string
+    cards: Card[]
+    addCard()
+    removeCard()
+    reset()
+}
+
+class Board {
+    columns: Column[]
+    cards: Card[]
+}
+
+Card "1" *-- "many" Process: processRefs
+Column "1" o-- "many" Card: aggregation
+Board "1" *-- "many" Card: contains
+Board "1" *-- "many" Column: contains
+Board "1" *-- "many" RoundRecord: contains
+@enduml
